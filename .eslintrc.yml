@@ -1,0 +1,24 @@
+parser: babel-eslint
+
+env:
+  browser: true
+
+plugins:
+  - prettier
+  - standard
+  - react
+  - compat
+
+extends:
+  - eslint:recommended
+  - plugin:react/recommended
+  - standard
+  - standard-react
+  - prettier
+  - prettier/react
+  - prettier/standard
+
+rules:
+  prettier/prettier: error
+  compat/compat: error
+  no-console: off
