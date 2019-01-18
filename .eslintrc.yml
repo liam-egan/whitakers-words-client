@@ -20,5 +20,5 @@ extends:
 
 rules:
   prettier/prettier: error
-  compat/compat: error
+  # compat/compat: error
   no-console: off

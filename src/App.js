@@ -7,7 +7,7 @@ function App() {
       <ResetStyles />
       <BaseStyles />
       <Wrapper>
-        <Title>Whitaker's Words</Title>
+        <Title>Whitaker&apos;s Words</Title>
       </Wrapper>
     </>
   )
@@ -26,7 +26,7 @@ const BaseStyles = createGlobalStyle`
     width: 100%;
     height: 100%;
     font-size: 10px;
-    font-family: 'Source Serif Pro';
+    font-family: 'Source Serif Pro', Georgia, 'Times New Roman', serif;
     color: #444;
   }
 `
