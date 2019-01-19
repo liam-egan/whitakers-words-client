@@ -68,7 +68,7 @@ const Box = styled.div`
   height: 70vh;
   border: 1px solid #c6c6c6;
   border-radius: ${props => props.theme.curves.lg};
-  overflow-y: auto;
+  overflow: auto;
 `
 
 const BoxHeader = styled.div`
@@ -78,6 +78,7 @@ const BoxHeader = styled.div`
     ${props => props.theme.curves.lg} 0 0;
   background-color: #f3f3f3;
   min-height: 50px;
+  min-width: 100%;
   border-bottom: 1px solid #c6c6c6;
   display: flex;
   justify-content: space-around;
@@ -93,6 +94,10 @@ const HeaderLink = styled(NavLink)`
   color: inherit;
   text-decoration: none;
   cursor: pointer;
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.sm}) {
+    font-size: 1.8rem;
+  }
 
   &.active {
     font-weight: bold;

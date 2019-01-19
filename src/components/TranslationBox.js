@@ -41,6 +41,11 @@ const Translation = styled.pre`
   font-size: 1.8rem;
   margin: 0 auto;
   line-height: 1.5em;
+  white-space: pre-wrap;
+
+  @media screen and (max-width: ${props => props.theme.breakpoints.sm}) {
+    font-size: 1.5rem;
+  }
 `
 
 const mapDispatchToProps = {
