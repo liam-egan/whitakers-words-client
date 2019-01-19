@@ -1,8 +1,8 @@
 {
-  "name": "react-boilerplate",
+  "name": "whitakers-words-web-client",
   "author": "liam-egan",
   "version": "1.0.0",
-  "license": "MIT",
+  "license": "GPL-3.0-only",
   "scripts": {
     "dev": "webpack-dashboard -- webpack-dev-server --config webpack/dev.config.js",
     "build": "webpack --config webpack/prod.config.js",
