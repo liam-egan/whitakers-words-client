@@ -1,16 +1,73 @@
-import React from 'react'
-import styled, { createGlobalStyle } from 'styled-components'
+import React, { useState, useEffect } from 'react'
+import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { string, func, bool } from 'prop-types'
+import { connect } from 'react-redux'
+import { useDebounce } from 'use-debounce'
+import translate from './actions/translate'
+import Button from './components/Button'
+import Loading from './components/Loading'
+import WordsBox from './components/WordsBox'
+import ContentBox from './components/ContentBox'
 
-function App() {
-  return (
-    <>
-      <ResetStyles />
-      <BaseStyles />
-      <Wrapper>
-        <Title>Whitaker&apos;s Words</Title>
-      </Wrapper>
-    </>
+const theme = {
+  breakpoints: {
+    sm: '576px',
+    md: '768px',
+    lg: '992px',
+    xl: '1200px'
+  },
+  curves: {
+    sm: '2px',
+    md: '4px',
+    lg: '8px'
+  },
+  colors: {
+    main: {
+      background: '#f6f6f6',
+      text: 'rgba(68, 68, 68, 0.75)'
+    },
+    primary: {
+      background: '#448aff',
+      text: 'white'
+    }
+  }
+}
+
+function App(props) {
+  const { words, englishToLatin, translate: initiateTranslation } = props
+  const [internalWords, setInternalWords] = useState(words)
+  const debouncedWords = useDebounce(internalWords, 750)
+
+  useEffect(
+    () => {
+      initiateTranslation({ words: debouncedWords, englishToLatin })
+    },
+    [debouncedWords, englishToLatin]
   )
+
+  function handleWordsChange(e) {
+    setInternalWords(e.target.value)
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <>
+        <ResetStyles />
+        <BaseStyles />
+        <Page>
+          <Title>Whitaker&apos;s Words</Title>
+          <SpacedWordsBox onChange={handleWordsChange} />
+          <ContentBox />
+        </Page>
+      </>
+    </ThemeProvider>
+  )
+}
+
+App.propTypes = {
+  words: string.isRequired,
+  translate: func.isRequired,
+  englishToLatin: bool.isRequired
 }
 
 const ResetStyles = createGlobalStyle`
@@ -18,32 +75,50 @@ const ResetStyles = createGlobalStyle`
 `
 
 const BaseStyles = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
   @import url('https://fonts.googleapis.com/css?family=Source+Serif+Pro');
 
   html,
   body,
   #root {
     width: 100%;
-    height: 100%;
     font-size: 10px;
-    font-family: 'Source Serif Pro', Georgia, 'Times New Roman', serif;
-    color: #444;
+    font-family: 'Source Sans Pro', Arial, sans-serif;
+    color: ${props => props.theme.colors.main.text};
+    background-color: ${props => props.theme.colors.main.background};;
   }
 `
 
-const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+const Page = styled.main`
+  width: 80vw;
+  margin: 75px auto 0 auto;
+
+  @media (max-width: ${props => props.theme.breakpoints.sm}) {
+    margin-top: 50px;
+    width: 90vw;
+  }
 `
 
 const Title = styled.h1`
-  font-weight: bold;
-  color: lightblue;
-  font-size: 3rem;
+  font-size: 4rem;
 `
 
-export default App
+const SpacedWordsBox = styled(WordsBox)`
+  margin: 10px 0 20px 0;
+`
+
+function mapStateToProps(state) {
+  return {
+    words: state.words,
+    englishToLatin: state.englishToLatin
+  }
+}
+
+const mapDispatchToProps = {
+  translate
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
