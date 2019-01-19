@@ -2,7 +2,7 @@
   "name": "whitakers-words-web-client",
   "author": "liam-egan",
   "version": "1.0.0",
-  "license": "GPL-3.0-only",
+  "license": "GPL-3.0",
   "scripts": {
     "dev": "webpack-dashboard -- webpack-dev-server --config webpack/dev.config.js",
     "build": "webpack --config webpack/prod.config.js",

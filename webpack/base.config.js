@@ -61,7 +61,7 @@ module.exports = {
       filename: 'index.html'
     }),
     new DefinePlugin({
-      API_URL: process.env.API_URL
+      API_URL: JSON.stringify(process.env.API_URL)
     })
   ]
 }
