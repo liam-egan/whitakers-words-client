@@ -1,12 +1,15 @@
 const merge = require('webpack-merge')
 const { HashedModuleIdsPlugin } = require('webpack')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const CompressionPlugin = require('compression-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 const baseConfig = require('./base.config')
 
 module.exports = merge(baseConfig, {
   mode: 'production',
+  optimization: {
+    minimizer: [new TerserPlugin()]
+  },
   module: {
     rules: [
       {
@@ -36,7 +39,6 @@ module.exports = merge(baseConfig, {
     new MiniCssExtractPlugin({
       filename: 'assets/styles/[name].[chunkhash].css'
     }),
-    new UglifyJsPlugin(),
     new CompressionPlugin()
   ]
 })

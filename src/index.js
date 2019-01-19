@@ -6,8 +6,16 @@ import { Provider } from 'react-redux'
 import rootReducer from './reducers'
 import App from './App'
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+const middlewares = applyMiddleware(thunk)
+let store
+
+if (process.env.NODE_ENV === 'development') {
+  const composeEnhancers =
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+  store = createStore(rootReducer, composeEnhancers(middlewares))
+} else {
+  store = createStore(rootReducer, middlewares)
+}
 
 const root = document.getElementById('root')
 const Root = (
