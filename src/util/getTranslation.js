@@ -8,7 +8,7 @@ export default async function getTranslation({
     ? { input: words, etl: englishToLatin }
     : { input: words }
 
-  const { data } = await axios.get(API_URL, {
+  const { data } = await axios.get('API_URL', {
     params
   })
 
