@@ -6,6 +6,7 @@ import {
   BrowserRouter as Router,
   NavLink,
   Route,
+  Redirect,
   Switch
 } from 'react-router-dom'
 import TranslationBox from './TranslationBox'
@@ -18,10 +19,10 @@ function ContentBox(props) {
     <Router>
       <Box>
         <BoxHeader>
-          <HeaderLink activeClassName="active" exact to="/">
+          <HeaderLink activeClassName="active" to="/latin">
             Latin to English
           </HeaderLink>
-          <HeaderLink activeClassName="active" exact to="/english">
+          <HeaderLink activeClassName="active" to="/english">
             English to Latin
           </HeaderLink>
           <HeaderLink activeClassName="active" to="/saved">
@@ -31,8 +32,7 @@ function ContentBox(props) {
 
         <Switch>
           <Route
-            path="/"
-            exact
+            path="/latin"
             render={() => {
               return loading ? (
                 <CenteredLoading />
@@ -43,7 +43,6 @@ function ContentBox(props) {
           />
           <Route
             path="/english"
-            exact
             render={() => {
               return loading ? (
                 <CenteredLoading />
@@ -52,6 +51,7 @@ function ContentBox(props) {
               )
             }}
           />
+          <Redirect from="/" to="/latin" />
         </Switch>
       </Box>
     </Router>
@@ -69,6 +69,7 @@ const Box = styled.div`
   border: 1px solid #c6c6c6;
   border-radius: ${props => props.theme.curves.lg};
   overflow: auto;
+  margin-bottom: 20px;
 `
 
 const BoxHeader = styled.div`

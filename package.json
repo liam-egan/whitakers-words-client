@@ -5,12 +5,13 @@
   "license": "GPL-3.0",
   "scripts": {
     "dev": "webpack-dashboard -- webpack-dev-server --config webpack/dev.config.js",
-    "build": "webpack --config webpack/prod.config.js",
+    "build": "webpack --config webpack/prod.config.js && cp ./_redirects dist/",
     "prebuild": "rimraf dist"
   },
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
     "axios": "^0.18.0",
+    "lodash": "^4.17.11",
     "prop-types": "^15.6.2",
     "react": "^16.8.0-alpha.1",
     "react-dom": "^16.8.0-alpha.1",

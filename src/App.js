@@ -2,10 +2,7 @@ import React, { useState, useEffect } from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { string, func, bool } from 'prop-types'
 import { connect } from 'react-redux'
-import { useDebounce } from 'use-debounce'
 import translate from './actions/translate'
-import Button from './components/Button'
-import Loading from './components/Loading'
 import WordsBox from './components/WordsBox'
 import ContentBox from './components/ContentBox'
 
@@ -36,13 +33,12 @@ const theme = {
 function App(props) {
   const { words, englishToLatin, translate: initiateTranslation } = props
   const [internalWords, setInternalWords] = useState(words)
-  const debouncedWords = useDebounce(internalWords, 750)
 
   useEffect(
     () => {
-      initiateTranslation({ words: debouncedWords, englishToLatin })
+      initiateTranslation({ words: internalWords, englishToLatin })
     },
-    [debouncedWords, englishToLatin]
+    [internalWords, englishToLatin]
   )
 
   function handleWordsChange(e) {
