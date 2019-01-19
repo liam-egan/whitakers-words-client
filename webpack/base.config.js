@@ -1,6 +1,7 @@
 const { resolve } = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
-const DotenvPlugin = require('dotenv-webpack')
+const { DefinePlugin } = require('webpack')
+require('dotenv').config()
 
 module.exports = {
   entry: {
@@ -59,8 +60,8 @@ module.exports = {
       favicon: resolve(__dirname, '../public/favicon.ico'),
       filename: 'index.html'
     }),
-    new DotenvPlugin({
-      path: resolve(__dirname, '../.env')
+    new DefinePlugin({
+      API_URL: process.env.API_URL
     })
   ]
 }
