@@ -36,12 +36,11 @@ TranslationBox.defaultProps = {
 
 const Translation = styled.pre`
   display: block;
-  min-height: 100px;
   padding: 1em;
   font-size: 1.8rem;
-  margin: 0 auto;
   line-height: 1.5em;
   white-space: pre-wrap;
+  overflow: auto;
 
   @media screen and (max-width: ${props => props.theme.breakpoints.sm}) {
     font-size: 1.5rem;

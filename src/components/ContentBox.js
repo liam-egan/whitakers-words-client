@@ -68,9 +68,11 @@ const Box = styled.div`
   height: 70vh;
   border: 1px solid #c6c6c6;
   border-radius: ${props => props.theme.curves.lg};
-  overflow: auto;
   margin-bottom: 20px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 `
 
 const BoxHeader = styled.div`
