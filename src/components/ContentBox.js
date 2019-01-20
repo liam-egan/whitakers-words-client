@@ -25,9 +25,9 @@ function ContentBox(props) {
           <HeaderLink activeClassName="active" to="/english">
             English to Latin
           </HeaderLink>
-          <HeaderLink activeClassName="active" to="/saved">
+          {/* <HeaderLink activeClassName="active" to="/saved">
             Saved Words
-          </HeaderLink>
+          </HeaderLink> */}
         </BoxHeader>
 
         <Switch>
@@ -109,17 +109,17 @@ const HeaderLink = styled(NavLink)`
 
   &:nth-child(1) {
     border-top-left-radius: ${props => props.theme.curves.lg};
-    border-right: 0.25px solid #c6c6c6;
+    border-right: 0.5px solid #c6c6c6;
   }
+
+  /* &:nth-child(2) {
+    border-left: 0.25px solid #c6c6c6;
+    border-right: 0.25px solid #c6c6c6;
+  } */
 
   &:nth-child(2) {
-    border-left: 0.25px solid #c6c6c6;
-    border-right: 0.25px solid #c6c6c6;
-  }
-
-  &:nth-child(3) {
     border-top-right-radius: ${props => props.theme.curves.lg};
-    border-left: 0.25px solid #c6c6c6;
+    border-left: 0.5px solid #c6c6c6;
   }
 `
 
