@@ -51,7 +51,7 @@ function ContentBox(props) {
               )
             }}
           />
-          <Redirect from="/" to="/latin" />
+          <Redirect exact from="/" to="/latin" />
         </Switch>
       </Box>
     </Router>
@@ -70,6 +70,7 @@ const Box = styled.div`
   border-radius: ${props => props.theme.curves.lg};
   overflow: auto;
   margin-bottom: 20px;
+  position: relative;
 `
 
 const BoxHeader = styled.div`
