@@ -1,7 +1,8 @@
-export const TRANSLATE_FROM_ENGLISH = 'TRANSLATE_FROM_ENGLISH'
+import translationRequest from './translationRequest'
 
-export default function translateFromEnglish() {
-  return {
-    type: TRANSLATE_FROM_ENGLISH
-  }
+export const TRANSLATE_FROM_ENGLISH = 'TRANSLATE_FROM_ENGLISH'
+export const ENGLISH = 'ENGLISH'
+
+export default function translateFromEnglish(words) {
+  return translationRequest(words, ENGLISH)
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import { string, bool } from 'prop-types'
 import { connect } from 'react-redux'

@@ -3,23 +3,25 @@ import styled, { keyframes } from 'styled-components'
 import { string } from 'prop-types'
 
 export default function Loading(props) {
-  const { className } = props
+  const { className, center } = props
 
   return (
-    <LoadingWrapper className={className}>
-      <LoadingBubble order={3} />
-      <LoadingBubble order={2} />
-      <LoadingBubble order={1} />
+    <LoadingWrapper className={className} center={center}>
+      <LoadingBubble bubbleOrder={3} />
+      <LoadingBubble bubbleOrder={2} />
+      <LoadingBubble bubbleOrder={1} />
     </LoadingWrapper>
   )
 }
 
 Loading.defaultProps = {
-  className: ''
+  className: '',
+  center: ''
 }
 
 Loading.propTypes = {
-  className: string
+  className: string,
+  center: string
 }
 
 const bounce = keyframes`
@@ -32,7 +34,18 @@ const bounce = keyframes`
   }
 `
 
-const LoadingWrapper = styled.div``
+const LoadingWrapper = styled.div`
+  ${props =>
+    props.center === 'page' || props.center === 'container'
+      ? 'top: calc(50vh - 10px); left: calc(50vw - 30px);'
+      : ''}
+  ${props =>
+    props.center === 'page'
+      ? 'position: fixed;'
+      : props.center === 'container'
+      ? 'position: absolute;'
+      : ''}
+`
 
 const LoadingBubble = styled.div`
   display: inline-block;
@@ -41,5 +54,5 @@ const LoadingBubble = styled.div`
   background-color: #444;
   border-radius: 50%;
   animation: ${bounce} 1250ms ease-in-out infinite;
-  animation-delay: ${({ order }) => order * -150}ms;
+  animation-delay: ${props => props.bubbleOrder * -150}ms;
 `

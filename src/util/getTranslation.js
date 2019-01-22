@@ -1,19 +1,24 @@
 import axios from 'axios'
+import { LATIN } from '../actions/translateFromLatin'
+import { ENGLISH } from '../actions/translateFromEnglish'
 
 const callApi = debounce(axios.get, 250)
 
-export default async function getTranslation({
-  words,
-  englishToLatin = false
-}) {
-  const params = englishToLatin
-    ? { input: words, etl: englishToLatin }
-    : { input: words }
+export default async function getTranslation(options) {
+  const { words = '', inputLanguage = LATIN } = options
 
-  const { data } = await callApi(API_URL, {
+  const params =
+    inputLanguage === ENGLISH ? { input: words, etl: true } : { input: words }
+
+  const { data, error } = await callApi(process.env.API_URL, {
     params
   })
-  return data.data.raw
+
+  if (error) {
+    throw error
+  }
+
+  return data.data
 }
 
 function debounce(f, interval) {

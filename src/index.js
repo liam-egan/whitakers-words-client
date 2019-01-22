@@ -1,12 +1,14 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers'
-import App from './App'
+import translateSaga from './actions/sagas/translate'
+import App from './components/App'
 
-const middlewares = applyMiddleware(thunk)
+const sagaMiddleware = createSagaMiddleware()
+const middlewares = applyMiddleware(sagaMiddleware)
 let store
 
 if (process.env.NODE_ENV === 'development') {
@@ -16,6 +18,8 @@ if (process.env.NODE_ENV === 'development') {
 } else {
   store = createStore(rootReducer, middlewares)
 }
+
+sagaMiddleware.run(translateSaga)
 
 const root = document.getElementById('root')
 const Root = (

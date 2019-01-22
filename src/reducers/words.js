@@ -4,11 +4,8 @@ export default function words(state = '', action) {
   const { type, payload } = action
 
   switch (type) {
-    case TRANSLATION_REQUEST: {
-      const { words } = payload
-
-      return words
-    }
+    case TRANSLATION_REQUEST:
+      return payload.words
 
     default:
       return state
