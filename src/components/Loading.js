@@ -36,8 +36,10 @@ const bounce = keyframes`
 
 const LoadingWrapper = styled.div`
   ${props =>
-    props.center === 'page' || props.center === 'container'
+    props.center === 'page'
       ? 'top: calc(50vh - 10px); left: calc(50vw - 30px);'
+      : props.center === 'container'
+      ? 'top: calc(50% - 10px); left: calc(50% - 30px);'
       : ''}
   ${props =>
     props.center === 'page'

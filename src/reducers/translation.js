@@ -6,8 +6,7 @@ export default function translation(state = {}, action) {
   switch (type) {
     case TRANSLATION_RESPONSE: {
       if (!error) {
-        const { translation } = payload
-        return translation
+        return payload
       } else {
         return state
       }

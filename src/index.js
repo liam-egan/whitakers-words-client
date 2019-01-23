@@ -5,7 +5,7 @@ import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers'
 import translateSaga from './actions/sagas/translate'
-import App from './components/App'
+import App from './App'
 
 const sagaMiddleware = createSagaMiddleware()
 const middlewares = applyMiddleware(sagaMiddleware)

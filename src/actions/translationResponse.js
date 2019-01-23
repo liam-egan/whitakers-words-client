@@ -1,7 +1,7 @@
 export const TRANSLATION_RESPONSE = 'TRANSLATION_RESPONSE'
 
 export default function translationResponse(translation, error) {
-  const payload = error || { translation }
+  const payload = error || translation
   const payloadIsError = !!error
 
   return {
