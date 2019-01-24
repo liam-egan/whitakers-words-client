@@ -4,7 +4,8 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import rootReducer from './reducers'
-import translateSaga from './actions/sagas/translate'
+import rootSaga from './actions/sagas/root'
+import savedWordsRequest from './actions/savedWordsRequest'
 import App from './App'
 
 const sagaMiddleware = createSagaMiddleware()
@@ -19,7 +20,9 @@ if (process.env.NODE_ENV === 'development') {
   store = createStore(rootReducer, middlewares)
 }
 
-sagaMiddleware.run(translateSaga)
+sagaMiddleware.run(rootSaga)
+
+store.dispatch(savedWordsRequest())
 
 const root = document.getElementById('root')
 const Root = (

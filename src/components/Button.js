@@ -4,10 +4,11 @@ import { bool, string } from 'prop-types'
 const Button = styled.button`
   font-family: inherit;
   font-size: 1.8rem;
+  font-weight: ${props => (props.bold ? 'bold' : 'normal')};
   padding: 0.5em 1em;
   cursor: pointer;
   outline: none;
-  border: 2px solid ${determineBorderColor};
+  border: 1px solid ${determineBorderColor};
   background-color: ${determineBackgroundColor};
   color: ${determineTextColor};
   border-radius: ${determineBorderRadius};
@@ -55,7 +56,11 @@ function determineBackgroundColorOnHover(props) {
 }
 
 function determineBorderColor(props) {
-  const { theme, color } = props
+  const { theme, color, borders } = props
+
+  if (borders) {
+    return theme.colors.borders.background
+  }
 
   return theme.colors[color].background
 }

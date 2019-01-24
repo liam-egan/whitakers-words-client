@@ -6,7 +6,7 @@ import { ENGLISH } from '../actions/translateFromEnglish'
 
 const callApi = debounce(axios.get, 350)
 
-export default memoize(async function getTranslation(options) {
+export default async function getTranslation(options) {
   const { words = '', inputLanguage = LATIN } = options
 
   const params =
@@ -14,7 +14,7 @@ export default memoize(async function getTranslation(options) {
 
   // don't need to make a request to API if there is no input
   if (words === '') {
-    return ''
+    return {}
   }
 
   const { data, error } = await callApi(process.env.API_URL, {
@@ -26,4 +26,4 @@ export default memoize(async function getTranslation(options) {
   }
 
   return data.data
-})
+}

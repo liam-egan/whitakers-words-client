@@ -1,9 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
-import { string, bool } from 'prop-types'
+import { string, bool, func } from 'prop-types'
 import Loading from './Loading'
 
 export default function Translation(props) {
+  const { setInputLanguage, inputLanguage } = props
+
+  useEffect(() => {
+    setInputLanguage(inputLanguage)
+  }, [])
+
   const { raw, loading } = props
 
   return loading ? (
@@ -15,7 +21,9 @@ export default function Translation(props) {
 
 Translation.propTypes = {
   raw: string,
-  loading: bool
+  loading: bool,
+  inputLanguage: string.isRequired,
+  setInputLanguage: func.isRequired
 }
 
 Translation.defaultProps = {

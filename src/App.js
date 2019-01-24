@@ -1,17 +1,24 @@
 import React, { Suspense, lazy, useState } from 'react'
 import styled, { createGlobalStyle, ThemeProvider } from 'styled-components'
-import { BrowserRouter as Router, NavLink, Redirect } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  NavLink,
+  Redirect,
+  Switch,
+  Route
+} from 'react-router-dom'
 import Loading from './components/Loading'
 import { LATIN } from './actions/translateFromLatin'
 import { ENGLISH } from './actions/translateFromEnglish'
 
 const ContentBox = lazy(() => import('./components/ContentBox'))
 const ContentBoxHeader = lazy(() => import('./components/ContentBoxHeader'))
-const SynchronizedWordsInput = lazy(() =>
-  import('./containers/SynchronizedWordsInput')
-)
+const SynchronizedWords = lazy(() => import('./containers/SynchronizedWords'))
 const SynchronizedTranslation = lazy(() =>
   import('./containers/SynchronizedTranslation')
+)
+const SynchronizedSavedWordsList = lazy(() =>
+  import('./containers/SynchronizedSavedWordsList')
 )
 
 const theme = {
@@ -37,11 +44,11 @@ const theme = {
     },
     grey: {
       background: '#ddd',
-      text: '#444'
+      text: 'rgba(68, 68, 68, 0.75)'
     },
     lightgrey: {
       background: '#f3f3f3',
-      text: '#444'
+      text: 'rgba(68, 68, 68, 0.75)'
     },
     content: {
       background: '#fafafa',
@@ -59,11 +66,11 @@ export default function App(props) {
     : LATIN
   const [inputLanguage, setInputLanguage] = useState(initialLanguage)
 
-  function setInputLanguageToLatin() {
+  function handleLatinClick() {
     setInputLanguage(LATIN)
   }
 
-  function setInputLanguageToEnglish() {
+  function handleEnglishClick() {
     setInputLanguage(ENGLISH)
   }
 
@@ -72,23 +79,42 @@ export default function App(props) {
       <ThemeProvider theme={theme}>
         <Suspense fallback={CenteredLoading}>
           <BaseStyles />
-          <Redirect from="/" to="/latin" />
 
           <Page>
             <Title>Whitaker&apos;s Words</Title>
-            <SynchronizedWordsInput inputLanguage={inputLanguage} />
+            <SynchronizedWords inputLanguage={inputLanguage} />
             <Suspense fallback={CenteredLoading}>
               <ContentBox>
                 <ContentBoxHeader>
-                  <HeaderLink onClick={setInputLanguageToLatin} to="/latin">
-                    Latin to English
+                  <HeaderLink onClick={handleLatinClick} to="/latin">
+                    Latin &rarr; English
                   </HeaderLink>
-                  <HeaderLink onClick={setInputLanguageToEnglish} to="/english">
-                    English to Latin
+                  <HeaderLink onClick={handleEnglishClick} to="/english">
+                    English &rarr; Latin
                   </HeaderLink>
+                  <HeaderLink to="/saved">Saved Words</HeaderLink>
                 </ContentBoxHeader>
 
-                <SynchronizedTranslation />
+                <Switch>
+                  <Route path="/latin">
+                    <SynchronizedTranslation
+                      inputLanguage={LATIN}
+                      setInputLanguage={setInputLanguage}
+                    />
+                  </Route>
+
+                  <Route path="/english">
+                    <SynchronizedTranslation
+                      inputLanguage={ENGLISH}
+                      setInputLanguage={setInputLanguage}
+                    />
+                  </Route>
+
+                  <Route path="/saved">
+                    <SynchronizedSavedWordsList />
+                  </Route>
+                  <Redirect from="/" to="/latin" />
+                </Switch>
               </ContentBox>
             </Suspense>
           </Page>
